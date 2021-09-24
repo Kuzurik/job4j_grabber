@@ -1,5 +1,6 @@
 package ru.job4j.grabber.utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -21,18 +22,25 @@ public class SqlRuDateTimeParser implements DateTimeParser{
             Map.entry("дек", "12")
     );
 
+    public String today(String time) {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yy");
+        String dateFormat = date.format(format);
+        return String.format("%s %s",dateFormat, time);
+    }
+
     @Override
     public LocalDateTime parse(String parse){
         String[] elements = parse.split(" ");
-       for (String month : MONTHS.keySet()) {
-           if (elements[1].equals(month)) {
-               elements[1] = MONTHS.get(month);
-           }
-       }
-       String[] year = elements[2].split(",");
-       elements[2] = year[0];
-       String date = String.format("%s-%s-%s %s",elements[0], elements[1], elements[2], elements[3]);
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
-       return LocalDateTime.parse(date, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        if (elements[0].equals("сегодня,")) {
+            return LocalDateTime.parse(today(elements[1]),formatter);
+        }
+        if (elements[0].equals("вчера,")) {
+            return LocalDateTime.parse(today(elements[1]),formatter).minusDays(1);
+        }
+        String[] year = elements[2].split(",");
+        String date = String.format("%s-%s-%s %s",elements[0], MONTHS.get(elements[1]), year[0], elements[3]);
+        return LocalDateTime.parse(date, formatter);
     }
 }
