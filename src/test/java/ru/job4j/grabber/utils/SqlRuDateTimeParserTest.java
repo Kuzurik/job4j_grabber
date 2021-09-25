@@ -3,6 +3,7 @@ package ru.job4j.grabber.utils;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,7 +28,10 @@ public class SqlRuDateTimeParserTest {
         SqlRuDateTimeParser parser = new SqlRuDateTimeParser();
         String date = "сегодня, 15:07";
         LocalDateTime result = parser.parse(date);
-        String expectedDate = "25-09-21 15:07";
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yy");
+        String dateFormat = localDate.format(format);
+        String expectedDate = String.format("%s 15:07", dateFormat);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
         LocalDateTime expected = LocalDateTime.parse(expectedDate, formatter);
         assertThat(result, is(expected));
@@ -38,9 +42,12 @@ public class SqlRuDateTimeParserTest {
         SqlRuDateTimeParser parser = new SqlRuDateTimeParser();
         String date = "вчера, 15:07";
         LocalDateTime result = parser.parse(date);
-        String expectedDate = "24-09-21 15:07";
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yy");
+        String dateFormat = localDate.format(format);
+        String expectedDate = String.format("%s 15:07", dateFormat);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
-        LocalDateTime expected = LocalDateTime.parse(expectedDate, formatter);
+        LocalDateTime expected = LocalDateTime.parse(expectedDate, formatter).minusDays(1);
         assertThat(result, is(expected));
     }
 }
