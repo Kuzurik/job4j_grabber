@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class GetPost {
 
@@ -19,12 +20,7 @@ public class GetPost {
         Document doc = Jsoup.connect(url).get();
         Elements row = doc.select(".msgFooter");
         String[] date = row.first().text().split(" ");
-        StringBuilder parseDate = new StringBuilder();
-        int index = 0;
-        while (index < 5){
-           parseDate.append(date[index]).append(" ");
-           index++;
-        }
-        return new SqlRuDateTimeParser().parse(parseDate.toString());
+        String parseDate = String.join(" ", Arrays.copyOf(date, 5));
+        return new SqlRuDateTimeParser().parse(parseDate);
     }
 }
