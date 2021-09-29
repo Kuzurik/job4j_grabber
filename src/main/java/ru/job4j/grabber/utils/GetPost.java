@@ -10,6 +10,8 @@ import java.util.Arrays;
 
 public class GetPost {
 
+    public static final int DATE_SIZE = 5;
+
     public String getDescription(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();
         Elements row = doc.select(".msgBody");
@@ -20,7 +22,7 @@ public class GetPost {
         Document doc = Jsoup.connect(url).get();
         Elements row = doc.select(".msgFooter");
         String[] date = row.first().text().split(" ");
-        String parseDate = String.join(" ", Arrays.copyOf(date, 5));
+        String parseDate = String.join(" ", Arrays.copyOf(date, DATE_SIZE));
         return new SqlRuDateTimeParser().parse(parseDate);
     }
 }
