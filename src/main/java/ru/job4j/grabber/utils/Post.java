@@ -5,11 +5,18 @@ import java.util.Objects;
 
 public class Post {
 
-    private final int id;
+    private int id;
     private final String title;
     private final String link;
     private final String description;
     private final LocalDateTime dateTime;
+
+    public Post(String title, String link, String description, LocalDateTime created) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.dateTime = created;
+    }
 
     public Post(int id, String title, String link, String description, LocalDateTime dateTime) {
         this.id = id;

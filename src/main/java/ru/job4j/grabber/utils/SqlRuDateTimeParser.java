@@ -32,7 +32,7 @@ public class SqlRuDateTimeParser implements DateTimeParser{
     @Override
     public LocalDateTime parse(String parse){
         String[] elements = parse.split(" ");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yy HH:mm");
         if (elements[0].equals("сегодня,")) {
             return LocalDateTime.parse(today(elements[1]),formatter);
         }
