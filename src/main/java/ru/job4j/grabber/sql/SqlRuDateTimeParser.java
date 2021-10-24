@@ -1,11 +1,13 @@
-package ru.job4j.grabber.utils;
+package ru.job4j.grabber.sql;
+
+import ru.job4j.grabber.utils.DateTimeParser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-public class SqlRuDateTimeParser implements DateTimeParser{
+public class SqlRuDateTimeParser implements DateTimeParser {
 
     private static final Map<String, String> MONTHS = Map.ofEntries(
             Map.entry("янв", "01"),
