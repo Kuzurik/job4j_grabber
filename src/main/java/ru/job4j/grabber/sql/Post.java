@@ -26,6 +26,22 @@ public class Post {
         this.dateTime = dateTime;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
